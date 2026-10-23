@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/schedule/schedule",
+    "pages/my/my",
+    "pages/webview/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1c1917",
+    "navigationBarTitleText": "简剪 · 理发预约",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#78716c",
+    "selectedColor": "#b45309",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "顾客预约"
+      },
+      {
+        "pagePath": "pages/schedule/schedule",
+        "text": "理发师排班"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的预约"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

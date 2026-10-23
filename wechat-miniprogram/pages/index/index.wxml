@@ -1,0 +1,113 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 顶部微信模拟服务通知弹窗 -->
+  <view class="top-notice-banner" wx:if="{{showTopNotice}}">
+    <view class="notice-header">
+      <view class="notice-badge">✓</view>
+      <text class="notice-title">微信服务通知 · 预约成功</text>
+      <text class="notice-close" bindtap="hideTopNotice">✕</text>
+    </view>
+    <view class="notice-body">
+      <text class="notice-line">【简剪 · 匠心发艺】服务预约已确认</text>
+      <text class="notice-sub">发型师：{{latestNotice.stylistName}} · 时段：{{latestNotice.date}} {{latestNotice.timeSlot}}</text>
+      <text class="notice-code">核销码：#{{latestNotice.bookingCode}} (已存入预约记录)</text>
+    </view>
+  </view>
+
+  <!-- 门店信息卡片 -->
+  <view class="card shop-card">
+    <view class="shop-title">简剪 · 匠心发艺</view>
+    <view class="shop-desc">三里屯艺术街区A座102 · 营业时间 09:00 - 21:00</view>
+  </view>
+
+  <!-- 1. 选择发型师 -->
+  <view class="card">
+    <view class="section-title">1. 选择发型师</view>
+    <view class="stylist-list">
+      <view 
+        wx:for="{{stylists}}" 
+        wx:key="id" 
+        class="stylist-item {{selectedStylistId === item.id ? 'active' : ''}}" 
+        bindtap="onSelectStylist" 
+        data-id="{{item.id}}"
+      >
+        <view class="stylist-avatar">{{item.name[0]}}</view>
+        <view class="stylist-name">{{item.name}}</view>
+        <view class="stylist-title">{{item.title}}</view>
+        <view class="stylist-exp">{{item.exp}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 2. 选择预约日期 -->
+  <view class="card">
+    <view class="section-title">2. 选择预约日期</view>
+    <scroll-view class="date-scroll" scroll-x enable-flex>
+      <view 
+        wx:for="{{upcomingDays}}" 
+        wx:key="dateStr" 
+        class="date-item {{selectedDate === item.dateStr ? 'active' : ''}}"
+        bindtap="onSelectDate"
+        data-date="{{item.dateStr}}"
+      >
+        <view class="date-rel">{{item.relativeLabel}}</view>
+        <view class="date-num">{{item.dayNumber}}</view>
+        <view class="date-week">{{item.dayOfWeek}}</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 3. 选择服务项目 -->
+  <view class="card">
+    <view class="section-title">3. 选择服务项目</view>
+    <view class="service-list">
+      <view 
+        wx:for="{{services}}" 
+        wx:key="id" 
+        class="service-item {{selectedServiceId === item.id ? 'active' : ''}}"
+        bindtap="onSelectService"
+        data-id="{{item.id}}"
+      >
+        <view class="service-info">
+          <text class="service-name">{{item.name}}</text>
+          <text class="service-duration">约{{item.duration}}分钟</text>
+        </view>
+        <view class="service-price">¥{{item.price}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 4. 选择预约时段 -->
+  <view class="card">
+    <view class="section-title-row">
+      <text class="section-title">4. 选择预约时段</text>
+      <text class="legend-note">🟢可约 ⚪已约 🔴休息</text>
+    </view>
+
+    <view class="slot-grid">
+      <view 
+        wx:for="{{timeSlots}}" 
+        wx:key="time" 
+        class="slot-btn {{item.status}} {{selectedSlot === item.time ? 'selected' : ''}}"
+        bindtap="onSelectSlot"
+        data-time="{{item.time}}"
+        data-status="{{item.status}}"
+      >
+        <view class="slot-time">{{item.time}}</view>
+        <view class="slot-label">{{item.label}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预约操作抽屉 -->
+  <view class="card booking-action-card" wx:if="{{selectedSlot}}">
+    <view class="summary-box">
+      <text>已选档期：{{selectedDate}} {{selectedSlot}} ({{selectedStylistName}})</text>
+    </view>
+    <view class="input-group">
+      <input class="input" placeholder="请输入您的姓名" value="{{customerName}}" bindinput="onInputName" />
+      <input class="input" placeholder="请输入手机号" type="number" value="{{customerPhone}}" bindinput="onInputPhone" />
+    </view>
+    <button class="primary-btn submit-btn" bindtap="submitBooking">立即确认预约</button>
+  </view>
+</view>

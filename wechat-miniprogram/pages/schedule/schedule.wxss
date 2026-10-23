@@ -1,0 +1,118 @@
+/* pages/schedule/schedule.wxss */
+.barber-header {
+  background: #1c1917;
+  color: #fff;
+}
+
+.header-label {
+  font-size: 22rpx;
+  color: #a8a29e;
+  margin-bottom: 12rpx;
+}
+
+.barber-tabs {
+  display: flex;
+  gap: 12rpx;
+}
+
+.barber-tab {
+  flex: 1;
+  text-align: center;
+  padding: 14rpx 0;
+  border-radius: 12rpx;
+  background: #292524;
+  font-size: 24rpx;
+  color: #d6d3d1;
+}
+
+.barber-tab.active {
+  background: #78350f;
+  color: #fff;
+  font-weight: bold;
+}
+
+.batch-btns {
+  display: flex;
+  gap: 16rpx;
+}
+
+.batch-btn {
+  flex: 1;
+  font-size: 24rpx;
+  border-radius: 12rpx;
+}
+
+.batch-btn.open {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1rpx solid #a7f3d0;
+}
+
+.batch-btn.rest {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1rpx solid #fecaca;
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx;
+  border-radius: 14rpx;
+  border: 1rpx solid #e7e5e4;
+  background: #fff;
+}
+
+.slot-row.available {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.slot-row.unavailable {
+  background: #fafaf9;
+  border-color: #e7e5e4;
+}
+
+.slot-row.booked {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+.time-col {
+  font-size: 28rpx;
+  font-weight: bold;
+  font-family: monospace;
+  width: 120rpx;
+}
+
+.status-col {
+  flex: 1;
+  font-size: 24rpx;
+}
+
+.tag-avail {
+  color: #059669;
+  font-weight: bold;
+}
+
+.tag-unavail {
+  color: #78716c;
+}
+
+.tag-booked {
+  color: #0369a1;
+  font-weight: bold;
+}
+
+.toggle-btn {
+  font-size: 20rpx;
+  background: #fff;
+  border: 1rpx solid #d6d3d1;
+}
