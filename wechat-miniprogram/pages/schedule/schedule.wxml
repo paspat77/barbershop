@@ -1,6 +1,6 @@
 <!--pages/schedule/schedule.wxml-->
 <view class="container">
-  <!-- 理发师身份卡片 -->
+  <!-- 理发师身份卡片与权限状态 -->
   <view class="card barber-header">
     <view class="barber-profile-row">
       <view class="barber-avatar">007</view>
@@ -11,63 +11,89 @@
         </view>
         <view class="barber-exp">发龄 20 年 · “never joke about my work, 007”</view>
       </view>
-    </view>
-  </view>
-
-  <!-- 日期切换 -->
-  <view class="card">
-    <view class="section-title-row">
-      <text class="section-title">选择排班日期</text>
-      <text class="date-selected-hint">已选: {{selectedDate}}</text>
-    </view>
-    <scroll-view class="date-scroll" scroll-x enable-flex>
-      <view 
-        wx:for="{{upcomingDays}}" 
-        wx:key="dateStr" 
-        class="date-item {{selectedDate === item.dateStr ? 'active' : ''}}"
-        bindtap="onSelectDate"
-        data-date="{{item.dateStr}}"
-      >
-        <view class="date-rel">{{item.relativeLabel}}</view>
-        <view class="date-num">{{item.dayNumber}}</view>
-        <view class="date-week">{{item.dayOfWeek}}</view>
-      </view>
-    </scroll-view>
-  </view>
-
-  <!-- 快捷批量操作 -->
-  <view class="card">
-    <view class="section-title">快捷排班设定</view>
-    <view class="batch-btns">
-      <button class="batch-btn open" bindtap="batchSet" data-type="all_open">全天开放有空</button>
-      <button class="batch-btn rest" bindtap="batchSet" data-type="all_closed">全天休息请假</button>
-    </view>
-  </view>
-
-  <!-- 时段状态管理列表 -->
-  <view class="card">
-    <view class="section-title">点击时段切换状态 (实时同步顾客端)</view>
-    <view class="schedule-list">
-      <view 
-        wx:for="{{slots}}" 
-        wx:key="time" 
-        class="slot-row {{item.status}}"
-        bindtap="toggleSlot"
-        data-time="{{item.time}}"
-        data-status="{{item.status}}"
-      >
-        <view class="time-col">{{item.time}}</view>
-        <view class="status-col">
-          <text wx:if="{{item.status === 'booked'}}" class="tag-booked">已约: {{item.customerInfo}}</text>
-          <text wx:elif="{{item.status === 'available'}}" class="tag-avail">🟢 有空 (开放预约)</text>
-          <text wx:else class="tag-unavail">🔴 没空 (理发师休息)</text>
-        </view>
-        <view class="action-col">
-          <button wx:if="{{item.status !== 'booked'}}" size="mini" class="toggle-btn">
-            {{item.status === 'available' ? '设为休息' : '设为有空'}}
-          </button>
-        </view>
+      <view class="barber-auth-btn" wx:if="{{isBarberAuthed}}" bindtap="lockBarberConsole">
+        <text class="lock-tag">🔒 重新锁定</text>
       </view>
     </view>
   </view>
+
+  <!-- 🔒 门禁保护卡片：未验证身份时显示 -->
+  <view class="card auth-gate-card" wx:if="{{!isBarberAuthed}}">
+    <view class="auth-gate-header">
+      <text class="auth-gate-title">🔒 理发师 007 专属管理后台</text>
+      <text class="auth-gate-badge">权限隔离保护</text>
+    </view>
+    <view class="auth-gate-desc">
+      此页面为 BT100 主理理发师 007 的档期管理工具。普通顾客无需进入。请输入管理口令解锁排班设置。
+    </view>
+
+    <view class="auth-input-box">
+      <input class="auth-input" placeholder="请输入口令 (默认密码为 007)" value="{{pinInput}}" bindinput="onInputPin" password />
+      <button class="auth-btn primary" bindtap="unlockBarberConsole">密码解锁</button>
+    </view>
+
+    <view class="quick-unlock-box">
+      <button class="auth-btn quick" bindtap="quickUnlock">⚡ 演示环境：一键以 007 身份开锁</button>
+    </view>
+  </view>
+
+  <!-- 已通过验证：展示完整排班与档期管理工作台 -->
+  <block wx:else>
+    <!-- 日期切换 -->
+    <view class="card">
+      <view class="section-title-row">
+        <text class="section-title">选择排班日期</text>
+        <text class="date-selected-hint">已选: {{selectedDate}}</text>
+      </view>
+      <scroll-view class="date-scroll" scroll-x enable-flex>
+        <view 
+          wx:for="{{upcomingDays}}" 
+          wx:key="dateStr" 
+          class="date-item {{selectedDate === item.dateStr ? 'active' : ''}}"
+          bindtap="onSelectDate"
+          data-date="{{item.dateStr}}"
+        >
+          <view class="date-rel">{{item.relativeLabel}}</view>
+          <view class="date-num">{{item.dayNumber}}</view>
+          <view class="date-week">{{item.dayOfWeek}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 快捷批量操作 -->
+    <view class="card">
+      <view class="section-title">快捷排班设定</view>
+      <view class="batch-btns">
+        <button class="batch-btn open" bindtap="batchSet" data-type="all_open">全天开放有空</button>
+        <button class="batch-btn rest" bindtap="batchSet" data-type="all_closed">全天休息请假</button>
+      </view>
+    </view>
+
+    <!-- 时段状态管理列表 -->
+    <view class="card">
+      <view class="section-title">点击时段切换状态 (实时同步顾客端)</view>
+      <view class="schedule-list">
+        <view 
+          wx:for="{{slots}}" 
+          wx:key="time" 
+          class="slot-row {{item.status}}"
+          bindtap="toggleSlot"
+          data-time="{{item.time}}"
+          data-status="{{item.status}}"
+        >
+          <view class="time-col">{{item.time}}</view>
+          <view class="status-col">
+            <text wx:if="{{item.status === 'booked'}}" class="tag-booked">已约: {{item.customerInfo}}</text>
+            <text wx:elif="{{item.status === 'available'}}" class="tag-avail">🟢 有空 (开放预约)</text>
+            <text wx:else class="tag-unavail">🔴 没空 (理发师休息)</text>
+          </view>
+          <view class="action-col">
+            <button wx:if="{{item.status !== 'booked'}}" size="mini" class="toggle-btn">
+              {{item.status === 'available' ? '设为休息' : '设为有空'}}
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
 </view>

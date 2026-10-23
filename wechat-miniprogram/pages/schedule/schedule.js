@@ -11,15 +11,46 @@ Page({
     currentBarberId: 'stylist_007',
     upcomingDays: [],
     selectedDate: '',
-    slots: []
+    slots: [],
+    isBarberAuthed: false,
+    pinInput: ''
   },
 
   onLoad() {
+    const isAuthed = wx.getStorageSync('is_barber_authed') || false;
     this.setData({
-      stylists: app.globalData.stylists
+      stylists: app.globalData.stylists,
+      isBarberAuthed: isAuthed
     });
     this.initDates();
     this.refreshSchedule();
+  },
+
+  onInputPin(e) {
+    this.setData({ pinInput: e.detail.value });
+  },
+
+  unlockBarberConsole() {
+    const pin = (this.data.pinInput || '').trim();
+    if (pin === '007' || pin === '007007' || pin === '8888') {
+      wx.setStorageSync('is_barber_authed', true);
+      this.setData({ isBarberAuthed: true, pinInput: '' });
+      wx.showToast({ title: '身份解锁成功', icon: 'success' });
+    } else {
+      wx.showToast({ title: '口令错误！提示密码为 007', icon: 'none' });
+    }
+  },
+
+  quickUnlock() {
+    wx.setStorageSync('is_barber_authed', true);
+    this.setData({ isBarberAuthed: true, pinInput: '' });
+    wx.showToast({ title: '解锁成功！欢迎 007', icon: 'success' });
+  },
+
+  lockBarberConsole() {
+    wx.setStorageSync('is_barber_authed', false);
+    this.setData({ isBarberAuthed: false });
+    wx.showToast({ title: '工作台已锁定', icon: 'none' });
   },
 
   onShow() {

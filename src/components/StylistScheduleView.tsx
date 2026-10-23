@@ -15,6 +15,10 @@ import {
   ToggleRight,
   Sun,
   Moon,
+  Lock,
+  Unlock,
+  KeyRound,
+  ShieldCheck,
 } from 'lucide-react';
 import { useBarbershop } from '../context/BarbershopContext';
 import { getUpcomingDays } from '../data/initialData';
@@ -32,7 +36,12 @@ export const StylistScheduleView: React.FC = () => {
     batchSetSchedule,
     appointments,
     setActiveTab,
+    isBarberAuthed,
+    loginAsBarber,
+    logoutBarber,
   } = useBarbershop();
+
+  const [pinInput, setPinInput] = useState('');
 
   const days = getUpcomingDays(7);
   const currentStylist = stylists.find((s) => s.id === currentBarberId) || stylists[0];

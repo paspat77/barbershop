@@ -61,6 +61,10 @@ interface BarbershopContextType {
     date: string,
     action: 'all_open' | 'all_closed' | 'morning_only' | 'afternoon_only'
   ) => void;
+  // Barber Access Control / Role Protection
+  isBarberAuthed: boolean;
+  loginAsBarber: (pin: string) => boolean;
+  logoutBarber: () => void;
   // Demo helpers
   resetAllData: () => void;
   toastMessage: string | null;
@@ -111,6 +115,22 @@ export const BarbershopProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [currentBarberId, setCurrentBarberId] = useState<string>(INITIAL_STYLISTS[0].id);
   const [selectedDate, setSelectedDate] = useState<string>(formatDate(new Date()));
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isBarberAuthed, setIsBarberAuthed] = useState<boolean>(true);
+
+  const loginAsBarber = (pin: string) => {
+    if (pin.trim() === '007' || pin.trim() === '007007' || pin.trim() === '8888') {
+      setIsBarberAuthed(true);
+      showToast('身份验证通过：已解锁 007 管理工作台');
+      return true;
+    }
+    showToast('暗号错误！提示默认密码为 007');
+    return false;
+  };
+
+  const logoutBarber = () => {
+    setIsBarberAuthed(false);
+    showToast('已锁定 007 管理工作台');
+  };
 
   // Sync to localStorage
   useEffect(() => {
@@ -432,6 +452,9 @@ export const BarbershopProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       cancelAppointment,
       toggleSlotAvailability,
       batchSetSchedule,
+      isBarberAuthed,
+      loginAsBarber,
+      logoutBarber,
       resetAllData,
       toastMessage,
       showToast,
@@ -448,6 +471,7 @@ export const BarbershopProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       selectedStylistId,
       currentBarberId,
       selectedDate,
+      isBarberAuthed,
       toastMessage,
     ]
   );

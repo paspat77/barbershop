@@ -54,6 +54,82 @@
   margin-top: 6rpx;
 }
 
+.lock-tag {
+  font-size: 20rpx;
+  color: #fca5a5;
+  background: #450a0a;
+  border: 1rpx solid #991b1b;
+  padding: 6rpx 14rpx;
+  border-radius: 20rpx;
+}
+
+/* Auth Gate Styling */
+.auth-gate-card {
+  border: 2rpx solid #b45309;
+  background: #fffbeb;
+}
+
+.auth-gate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.auth-gate-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #78350f;
+}
+
+.auth-gate-badge {
+  font-size: 20rpx;
+  background: #78350f;
+  color: #fff;
+  padding: 2rpx 12rpx;
+  border-radius: 12rpx;
+}
+
+.auth-gate-desc {
+  font-size: 22rpx;
+  color: #78716c;
+  line-height: 1.5;
+  margin-bottom: 20rpx;
+}
+
+.auth-input-box {
+  display: flex;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.auth-input {
+  flex: 1;
+  background: #fff;
+  border: 1rpx solid #d6d3d1;
+  border-radius: 12rpx;
+  padding: 14rpx 18rpx;
+  font-size: 24rpx;
+}
+
+.auth-btn {
+  font-size: 24rpx;
+  border-radius: 12rpx;
+}
+
+.auth-btn.primary {
+  background: #78350f;
+  color: #fff;
+  font-weight: bold;
+}
+
+.auth-btn.quick {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1rpx solid #a7f3d0;
+  width: 100%;
+}
+
 .section-title {
   font-size: 28rpx;
   font-weight: bold;
