@@ -98,6 +98,87 @@
   color: #78716c;
 }
 
+.master-007-card {
+  background: #1c1917;
+  color: #fff;
+  border: 1rpx solid #44403c;
+}
+
+.tag-007-badge {
+  font-size: 20rpx;
+  color: #6ee7b7;
+  background: rgba(6, 95, 70, 0.4);
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+  border: 1rpx solid #059669;
+}
+
+.date-selected-hint {
+  font-size: 22rpx;
+  color: #b45309;
+  font-weight: bold;
+}
+
+.stylist-007-box {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.stylist-007-avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 20rpx;
+  background: #78350f;
+  color: #fff;
+  line-height: 90rpx;
+  text-align: center;
+  font-weight: bold;
+  font-size: 36rpx;
+  border: 2rpx solid #d97706;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.3);
+}
+
+.stylist-007-info {
+  flex: 1;
+}
+
+.stylist-007-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.stylist-007-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+}
+
+.stylist-007-tag {
+  font-size: 20rpx;
+  background: #451a03;
+  color: #fde68a;
+  border: 1rpx solid #b45309;
+  padding: 2rpx 10rpx;
+  border-radius: 8rpx;
+}
+
+.stylist-007-exp {
+  font-size: 22rpx;
+  color: #d6d3d1;
+  margin-top: 6rpx;
+}
+
+.stylist-007-bio {
+  border-top: 1rpx solid #292524;
+  padding-top: 12rpx;
+  font-size: 22rpx;
+  color: #fef08a;
+  font-style: italic;
+}
+
 .stylist-list {
   display: flex;
   gap: 16rpx;

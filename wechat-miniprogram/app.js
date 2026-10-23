@@ -1,7 +1,7 @@
 // app.js
 App({
   onLaunch() {
-    console.log('简剪理发预约微信小程序启动');
+    console.log('简剪理发预约微信小程序启动 - 主理发型师: 007');
 
     // 1. 初始化微信云开发
     if (!wx.cloud) {
@@ -19,26 +19,42 @@ App({
       this.db = wx.cloud.database();
     }
 
-    // 2. 本地备用缓存初始化（保证未配置云开发时也能无缝使用）
+    // 2. 本地备用缓存初始化（动态绑定当天日期，保证真机与开发者工具显示完全一致）
     this.initLocalDataFallback();
   },
 
+  // 获取 YYYY-MM-DD 格式的安全本地日期
+  getFormattedDate(dateObj) {
+    const y = dateObj.getFullYear();
+    const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const d = String(dateObj.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  },
+
   initLocalDataFallback() {
-    if (!wx.getStorageSync('barbershop_appointments')) {
+    const now = new Date();
+    const todayStr = this.getFormattedDate(now);
+    this.globalData.todayStr = todayStr;
+
+    // 清理或更新至包含 007 的预约测试数据
+    const existingAppts = wx.getStorageSync('barbershop_appointments');
+    const has007 = existingAppts && existingAppts.some(a => a.stylistId === 'stylist_007');
+
+    if (!has007) {
       wx.setStorageSync('barbershop_appointments', [
         {
           id: 'apt_1001',
-          bookingCode: 'B8291',
-          customerName: '张先生',
-          customerPhone: '138****6672',
-          stylistId: 'stylist_tony',
-          stylistName: 'Tony 老师',
+          bookingCode: 'B8007',
+          customerName: '邦德先生',
+          customerPhone: '138****0077',
+          stylistId: 'stylist_007',
+          stylistName: '007',
           serviceName: '总监设计洗剪吹',
           servicePrice: 68,
-          date: '2026-10-23',
+          date: todayStr,
           timeSlot: '11:00',
           status: 'confirmed',
-          createdAt: '2026-10-22 14:20'
+          createdAt: `${todayStr} 09:30`
         }
       ]);
     }
@@ -46,10 +62,16 @@ App({
 
   globalData: {
     userInfo: null,
+    // 按照需求：仅保留1位理发师，名称007，留言：never joke about my work, 007；发龄20年
     stylists: [
-      { id: 'stylist_tony', name: 'Tony 老师', title: '首席发型总监', exp: '9年发龄' },
-      { id: 'stylist_lily', name: 'Lily 设计师', title: '资深美发设计师', exp: '7年发龄' },
-      { id: 'stylist_ming', name: '阿铭 匠师', title: '美式复古理容主理人', exp: '14年发龄' }
-    ]
+      {
+        id: 'stylist_007',
+        name: '007',
+        title: '特工发艺主理人 · 造型宗师',
+        exp: '20年发龄',
+        bio: 'never joke about my work, 007'
+      }
+    ],
+    selectedDate: ''
   }
 });

@@ -8,8 +8,8 @@ const ALL_SLOTS = [
 Page({
   data: {
     stylists: [],
-    selectedStylistId: 'stylist_tony',
-    selectedStylistName: 'Tony 老师',
+    selectedStylistId: 'stylist_007',
+    selectedStylistName: '007',
     upcomingDays: [],
     selectedDate: '',
     services: [
@@ -20,8 +20,8 @@ Page({
     selectedServiceId: 'srv_1',
     timeSlots: [],
     selectedSlot: null,
-    customerName: '陈先生',
-    customerPhone: '13812345678',
+    customerName: '邦德先生',
+    customerPhone: '13812340077',
     showTopNotice: false,
     latestNotice: null,
     isCloudReady: false
@@ -37,6 +37,10 @@ Page({
   },
 
   onShow() {
+    // 如果排班页切换了日期，保持同步
+    if (app.globalData.selectedDate && app.globalData.selectedDate !== this.data.selectedDate) {
+      this.setData({ selectedDate: app.globalData.selectedDate, selectedSlot: null });
+    }
     this.refreshSlots();
   },
 
@@ -50,10 +54,13 @@ Page({
     const weekMap = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
     const days = [];
     const now = new Date();
+    const baseYear = now.getFullYear();
+    const baseMonth = now.getMonth();
+    const baseDate = now.getDate();
 
     for (let i = 0; i < 7; i++) {
-      const target = new Date();
-      target.setDate(now.getDate() + i);
+      // 纯年月日运算，杜绝跨时区或夜间小时抖动
+      const target = new Date(baseYear, baseMonth, baseDate + i);
       const y = target.getFullYear();
       const m = String(target.getMonth() + 1).padStart(2, '0');
       const d = String(target.getDate()).padStart(2, '0');
@@ -63,14 +70,18 @@ Page({
       days.push({
         dateStr,
         dayNumber: target.getDate(),
+        month: target.getMonth() + 1,
         dayOfWeek: weekMap[target.getDay()],
         relativeLabel: rel
       });
     }
 
+    const defaultDate = app.globalData.selectedDate || days[0].dateStr;
+    app.globalData.selectedDate = defaultDate;
+
     this.setData({
       upcomingDays: days,
-      selectedDate: days[0].dateStr
+      selectedDate: defaultDate
     });
   },
 
@@ -79,7 +90,7 @@ Page({
     const s = this.data.stylists.find(item => item.id === id);
     this.setData({
       selectedStylistId: id,
-      selectedStylistName: s ? s.name : '',
+      selectedStylistName: s ? s.name : '007',
       selectedSlot: null
     }, () => {
       this.refreshSlots();
@@ -88,6 +99,7 @@ Page({
 
   onSelectDate(e) {
     const date = e.currentTarget.dataset.date;
+    app.globalData.selectedDate = date;
     this.setData({
       selectedDate: date,
       selectedSlot: null

@@ -8,7 +8,7 @@ const ALL_SLOTS = [
 Page({
   data: {
     stylists: [],
-    currentBarberId: 'stylist_tony',
+    currentBarberId: 'stylist_007',
     upcomingDays: [],
     selectedDate: '',
     slots: []
@@ -23,6 +23,9 @@ Page({
   },
 
   onShow() {
+    if (app.globalData.selectedDate && app.globalData.selectedDate !== this.data.selectedDate) {
+      this.setData({ selectedDate: app.globalData.selectedDate });
+    }
     this.refreshSchedule();
   },
 
@@ -30,10 +33,13 @@ Page({
     const weekMap = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
     const days = [];
     const now = new Date();
+    const baseYear = now.getFullYear();
+    const baseMonth = now.getMonth();
+    const baseDate = now.getDate();
 
     for (let i = 0; i < 7; i++) {
-      const target = new Date();
-      target.setDate(now.getDate() + i);
+      // 纯年月日安全运算
+      const target = new Date(baseYear, baseMonth, baseDate + i);
       const y = target.getFullYear();
       const m = String(target.getMonth() + 1).padStart(2, '0');
       const d = String(target.getDate()).padStart(2, '0');
@@ -43,27 +49,34 @@ Page({
       days.push({
         dateStr,
         dayNumber: target.getDate(),
+        month: target.getMonth() + 1,
+        dayOfWeek: weekMap[target.getDay()],
         relativeLabel: rel
       });
     }
 
+    const defaultDate = app.globalData.selectedDate || days[0].dateStr;
+    app.globalData.selectedDate = defaultDate;
+
     this.setData({
       upcomingDays: days,
-      selectedDate: days[0].dateStr
+      selectedDate: defaultDate
     });
   },
 
   switchBarber(e) {
     this.setData({
-      currentBarberId: e.currentTarget.dataset.id
+      currentBarberId: e.currentTarget.dataset.id || 'stylist_007'
     }, () => {
       this.refreshSchedule();
     });
   },
 
   onSelectDate(e) {
+    const date = e.currentTarget.dataset.date;
+    app.globalData.selectedDate = date;
     this.setData({
-      selectedDate: e.currentTarget.dataset.date
+      selectedDate: date
     }, () => {
       this.refreshSchedule();
     });

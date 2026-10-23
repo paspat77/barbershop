@@ -2,33 +2,110 @@
 .barber-header {
   background: #1c1917;
   color: #fff;
+  border: 1rpx solid #44403c;
 }
 
-.header-label {
-  font-size: 22rpx;
-  color: #a8a29e;
-  margin-bottom: 12rpx;
-}
-
-.barber-tabs {
+.barber-profile-row {
   display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.barber-avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 20rpx;
+  background: #78350f;
+  color: #fff;
+  line-height: 90rpx;
+  text-align: center;
+  font-weight: bold;
+  font-size: 36rpx;
+  border: 2rpx solid #d97706;
+}
+
+.barber-details {
+  flex: 1;
+}
+
+.barber-name-row {
+  display: flex;
+  align-items: center;
   gap: 12rpx;
 }
 
-.barber-tab {
-  flex: 1;
-  text-align: center;
-  padding: 14rpx 0;
-  border-radius: 12rpx;
-  background: #292524;
-  font-size: 24rpx;
-  color: #d6d3d1;
+.barber-name {
+  font-size: 32rpx;
+  font-weight: bold;
 }
 
-.barber-tab.active {
+.barber-role {
+  font-size: 20rpx;
+  background: #451a03;
+  color: #fde68a;
+  border: 1rpx solid #b45309;
+  padding: 2rpx 10rpx;
+  border-radius: 8rpx;
+}
+
+.barber-exp {
+  font-size: 22rpx;
+  color: #d6d3d1;
+  margin-top: 6rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.date-selected-hint {
+  font-size: 22rpx;
+  color: #b45309;
+  font-weight: bold;
+}
+
+/* Horizontal Date Picker Styles (matching index.wxss) */
+.date-scroll {
+  display: flex;
+  white-space: nowrap;
+}
+
+.date-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 20rpx;
+  background: #f5f5f4;
+  border-radius: 16rpx;
+  margin-right: 14rpx;
+  min-width: 90rpx;
+}
+
+.date-item.active {
   background: #78350f;
   color: #fff;
+}
+
+.date-rel {
+  font-size: 20rpx;
+}
+
+.date-num {
+  font-size: 32rpx;
   font-weight: bold;
+  margin: 4rpx 0;
+}
+
+.date-week {
+  font-size: 20rpx;
 }
 
 .batch-btns {

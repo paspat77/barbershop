@@ -148,60 +148,60 @@ export const CustomerBookingView: React.FC = () => {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-4 bg-amber-700 rounded-full" />
-              <h2 className="text-sm font-bold text-stone-900">1. 选择发型师</h2>
+              <h2 className="text-sm font-bold text-stone-900">1. 指定主理发型师</h2>
             </div>
-            <span className="text-[11px] text-stone-500">点击切换理发师与档期</span>
+            <span className="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              ● 20年发龄 · 首席执剪
+            </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2">
-            {stylists.map((stylist) => {
-              const isSelected = stylist.id === selectedStylistId;
-              return (
-                <button
-                  key={stylist.id}
-                  onClick={() => {
-                    setSelectedStylistId(stylist.id);
-                    setSelectedSlot(null);
-                  }}
-                  className={`text-left p-2 rounded-xl transition-all border relative flex flex-col items-center ${
-                    isSelected
-                      ? 'border-amber-700 bg-amber-50/50 shadow-xs ring-1 ring-amber-700'
-                      : 'border-stone-200 hover:border-stone-300 bg-white'
-                  }`}
-                >
-                  <div className="relative mb-1.5">
-                    <img
-                      src={stylist.avatar}
-                      alt={stylist.name}
-                      referrerPolicy="no-referrer"
-                      className="w-13 h-13 rounded-full object-cover border-2 border-white shadow-xs"
-                    />
-                    {isSelected && (
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-amber-700 rounded-full flex items-center justify-center text-white">
-                        <CheckCircle2 className="w-3 h-3" />
-                      </div>
-                    )}
-                  </div>
-                  <span className="text-xs font-bold text-stone-900 truncate w-full text-center">
-                    {stylist.name}
-                  </span>
-                  <span className="text-[10px] text-amber-800 font-medium truncate w-full text-center">
-                    {stylist.title}
-                  </span>
-                  <span className="text-[10px] text-stone-600 mt-0.5 font-mono">
-                    {stylist.experienceYears}年发龄
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          {/* Master 007 Stylist Card */}
+          <div className="bg-stone-900 text-white rounded-xl p-3 border border-stone-800 shadow-sm relative overflow-hidden">
+            <div className="flex items-center gap-3">
+              <div className="relative shrink-0">
+                <img
+                  src={currentStylist.avatar}
+                  alt={currentStylist.name}
+                  referrerPolicy="no-referrer"
+                  className="w-16 h-16 rounded-2xl object-cover border-2 border-amber-600/80 shadow-md"
+                />
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-600 rounded-full flex items-center justify-center text-white text-[10px] font-bold">
+                  ✓
+                </div>
+              </div>
 
-          {/* Current Stylist Intro */}
-          <div className="mt-3 pt-3 border-t border-stone-100 flex items-center gap-2 text-[11px] text-stone-600">
-            <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-            <p className="line-clamp-1">
-              <span className="font-semibold text-stone-800">{currentStylist.name}</span>: {currentStylist.bio}
-            </p>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-bold text-white tracking-wide">{currentStylist.name}</span>
+                  <span className="text-[10px] bg-amber-950 text-amber-300 border border-amber-800/80 px-1.5 py-0.2 rounded font-medium">
+                    {currentStylist.title}
+                  </span>
+                </div>
+                <div className="text-xs text-stone-300 mt-1 flex items-center gap-2 font-mono">
+                  <span className="text-amber-400 font-bold">发龄 {currentStylist.experienceYears} 年</span>
+                  <span>·</span>
+                  <span>评分 5.0</span>
+                  <span>·</span>
+                  <span>已完成 3600+ 单</span>
+                </div>
+                <div className="flex items-center gap-1.5 mt-1.5">
+                  {currentStylist.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[9px] bg-stone-800 text-stone-300 px-1.5 py-0.5 rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Quote Banner */}
+            <div className="mt-2.5 pt-2 border-t border-stone-800/90 flex items-center gap-2 text-xs text-amber-300/90 italic font-medium">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span>“{currentStylist.bio}”</span>
+            </div>
           </div>
         </section>
 

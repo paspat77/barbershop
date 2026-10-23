@@ -14,39 +14,18 @@ export const ALL_TIME_SLOTS = [
   '20:00',
 ];
 
+// 按照用户需求：仅保留1位理发师，名称007，发龄20年，留言：never joke about my work, 007
 export const INITIAL_STYLISTS: Stylist[] = [
   {
-    id: 'stylist_tony',
-    name: 'Tony 老师',
-    title: '首席发型总监',
-    avatar: '/src/assets/images/barber_tony_1792723619612.jpg',
-    experienceYears: 9,
-    rating: 4.9,
-    completedOrders: 1420,
-    bio: '擅长日系轻盈男发、法式芭比烫、头骨立体修容剪裁，耐心沟通发型细节。',
-    tags: ['立体雕刻', '自然纹理', '日系短发'],
-  },
-  {
-    id: 'stylist_lily',
-    name: 'Lily 设计师',
-    title: '资深美发设计师',
-    avatar: '/src/assets/images/barber_lily_1792723620315.jpg',
-    experienceYears: 7,
-    rating: 4.95,
-    completedOrders: 1180,
-    bio: '专注女性气质短发、轻奢法式卷、高质感冷茶色与头皮水疗养护，注重发质健康。',
-    tags: ['锁骨微卷', '质感染发', '减龄刘海'],
-  },
-  {
-    id: 'stylist_ming',
-    name: '阿铭 匠师',
-    title: '美式复古理容主理人',
-    avatar: '/src/assets/images/barber_ming_1792723620359.jpg',
-    experienceYears: 14,
+    id: 'stylist_007',
+    name: '007',
+    title: '特工发艺主理人 · 造型宗师',
+    avatar: '/src/assets/images/barber_007_1792743580725.jpg',
+    experienceYears: 20,
     rating: 5.0,
-    completedOrders: 2360,
-    bio: '十四年传统理发匠心，精通美式渐变油头、热敷修面、胡须雕刻及男士硬派造型。',
-    tags: ['美式渐变Fade', '热毛巾修面', '硬核复古'],
+    completedOrders: 3680,
+    bio: 'never joke about my work, 007',
+    tags: ['精准利落', '精雕细琢', '特工美学'],
   },
 ];
 
@@ -101,15 +80,18 @@ export function formatDate(d: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-// Generate the upcoming 7 days
+// Generate the upcoming 7 days with safe midnight alignment
 export function getUpcomingDays(count: number = 7) {
   const days = [];
   const weekDayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-  const today = new Date();
+  const now = new Date();
+  const baseYear = now.getFullYear();
+  const baseMonth = now.getMonth();
+  const baseDate = now.getDate();
 
   for (let i = 0; i < count; i++) {
-    const target = new Date();
-    target.setDate(today.getDate() + i);
+    // 使用纯年月日构造，消除夏令时与夜间跨时区时间抖动
+    const target = new Date(baseYear, baseMonth, baseDate + i);
     const dateStr = formatDate(target);
     const dayOfWeek = weekDayNames[target.getDay()];
     let relativeLabel = '';
@@ -130,7 +112,7 @@ export function getUpcomingDays(count: number = 7) {
   return days;
 }
 
-// Generate initial demo schedule
+// Generate initial demo schedule for 007
 export function generateInitialSchedules(): Record<string, StylistDaySchedule> {
   const days = getUpcomingDays(7);
   const schedules: Record<string, StylistDaySchedule> = {};
@@ -141,27 +123,12 @@ export function generateInitialSchedules(): Record<string, StylistDaySchedule> {
       const slots: Record<string, 'available' | 'unavailable'> = {};
 
       ALL_TIME_SLOTS.forEach((slot) => {
-        // By default open
+        // 默认开放预约
         slots[slot] = 'available';
 
-        // Tony has lunch break at 13:00 and off at 20:00
-        if (stylist.id === 'stylist_tony') {
-          if (slot === '13:00') slots[slot] = 'unavailable';
-          if (slot === '20:00' && dayIndex % 2 === 1) slots[slot] = 'unavailable';
-        }
-
-        // Lily has morning off on day 2, or breaks at 14:00
-        if (stylist.id === 'stylist_lily') {
-          if (slot === '09:00') slots[slot] = 'unavailable';
-          if (slot === '14:00' && dayIndex === 0) slots[slot] = 'unavailable';
-        }
-
-        // Ming takes evening off on day 1
-        if (stylist.id === 'stylist_ming') {
-          if (slot === '19:00' || slot === '20:00') {
-            if (dayIndex === 1) slots[slot] = 'unavailable';
-          }
-        }
+        // 007 午休时段 13:00 设为休息；晚间20:00隔天设为休息
+        if (slot === '13:00') slots[slot] = 'unavailable';
+        if (slot === '20:00' && dayIndex % 2 === 1) slots[slot] = 'unavailable';
       });
 
       schedules[key] = {
@@ -175,21 +142,21 @@ export function generateInitialSchedules(): Record<string, StylistDaySchedule> {
   return schedules;
 }
 
-// Generate sample initial appointments
+// Generate sample initial appointments for 007
 export function generateInitialAppointments(): Appointment[] {
-  const todayStr = formatDate(new Date());
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
+  const now = new Date();
+  const todayStr = formatDate(now);
+  const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
   const tomorrowStr = formatDate(tomorrow);
 
   return [
     {
       id: 'apt_1001',
-      bookingCode: 'B8291',
-      customerName: '张先生',
-      customerPhone: '138****6672',
-      stylistId: 'stylist_tony',
-      stylistName: 'Tony 老师',
+      bookingCode: 'B8007',
+      customerName: '邦德先生',
+      customerPhone: '138****0077',
+      stylistId: 'stylist_007',
+      stylistName: '007',
       serviceId: 'srv_cut_standard',
       serviceName: '总监设计洗剪吹',
       servicePrice: 68,
@@ -197,102 +164,64 @@ export function generateInitialAppointments(): Appointment[] {
       date: todayStr,
       timeSlot: '11:00',
       status: 'confirmed',
-      notes: '需要保留鬓角，稍微修薄顶部',
-      createdAt: '2026-10-22 14:20',
+      notes: '保持极致干练，配合经典西装领口轮廓',
+      createdAt: `${todayStr} 09:30`,
       notificationHistory: [
         {
           id: 'notif_1001',
           appointmentId: 'apt_1001',
-          bookingCode: 'B8291',
+          bookingCode: 'B8007',
           type: 'booking_success',
           title: '服务预约成功通知',
-          summary: '您已成功预约【简剪 · 匠心发艺】服务',
-          stylistName: 'Tony 老师',
+          summary: '您已成功预约【简剪 · 007发艺】服务',
+          stylistName: '007',
           serviceName: '总监设计洗剪吹',
           appointmentDateTime: `${todayStr} 11:00`,
-          bookingCodeText: 'B8291',
-          customerName: '张先生',
-          customerPhone: '138****6672',
-          storeName: '简剪 · 匠心发艺 (三里屯店)',
+          bookingCodeText: 'B8007',
+          customerName: '邦德先生',
+          customerPhone: '138****0077',
+          storeName: '简剪 · 007发艺工作室 (三里屯店)',
           storeAddress: '三里屯艺术街区A座102',
           warmPrompt: '请凭核销码准时到店，档期将为您保留15分钟。',
-          sentAt: '2026-10-22 14:20',
+          sentAt: `${todayStr} 09:30`,
           read: true,
         },
       ],
     },
     {
       id: 'apt_1002',
-      bookingCode: 'B8304',
-      customerName: '林女士',
-      customerPhone: '139****5821',
-      stylistId: 'stylist_lily',
-      stylistName: 'Lily 设计师',
-      serviceId: 'srv_perm_texture',
-      serviceName: '日系自然纹理烫 / 气垫烫',
-      servicePrice: 288,
-      serviceDuration: 90,
-      date: todayStr,
-      timeSlot: '15:00',
-      status: 'confirmed',
-      notes: '首次来店，之前漂过头发',
-      createdAt: '2026-10-22 16:05',
-      notificationHistory: [
-        {
-          id: 'notif_1002',
-          appointmentId: 'apt_1002',
-          bookingCode: 'B8304',
-          type: 'booking_success',
-          title: '服务预约成功通知',
-          summary: '您已成功预约【简剪 · 匠心发艺】服务',
-          stylistName: 'Lily 设计师',
-          serviceName: '日系自然纹理烫 / 气垫烫',
-          appointmentDateTime: `${todayStr} 15:00`,
-          bookingCodeText: 'B8304',
-          customerName: '林女士',
-          customerPhone: '139****5821',
-          storeName: '简剪 · 匠心发艺 (三里屯店)',
-          storeAddress: '三里屯艺术街区A座102',
-          warmPrompt: '请凭核销码准时到店，档期将为您保留15分钟。',
-          sentAt: '2026-10-22 16:05',
-          read: true,
-        },
-      ],
-    },
-    {
-      id: 'apt_1003',
-      bookingCode: 'B8312',
-      customerName: '王先生',
-      customerPhone: '186****9910',
-      stylistId: 'stylist_ming',
-      stylistName: '阿铭 匠师',
+      bookingCode: 'B8009',
+      customerName: '林小姐',
+      customerPhone: '139****0079',
+      stylistId: 'stylist_007',
+      stylistName: '007',
       serviceId: 'srv_cut_shave',
       serviceName: '美式精修剪发 + 复古热敷刮面',
       servicePrice: 118,
       serviceDuration: 60,
       date: tomorrowStr,
-      timeSlot: '16:00',
+      timeSlot: '15:00',
       status: 'confirmed',
-      notes: '老顾客，常规渐变推边',
-      createdAt: '2026-10-22 18:30',
+      notes: '体验20年发龄精修刀工',
+      createdAt: `${todayStr} 10:15`,
       notificationHistory: [
         {
-          id: 'notif_1003',
-          appointmentId: 'apt_1003',
-          bookingCode: 'B8312',
+          id: 'notif_1002',
+          appointmentId: 'apt_1002',
+          bookingCode: 'B8009',
           type: 'booking_success',
           title: '服务预约成功通知',
-          summary: '您已成功预约【简剪 · 匠心发艺】服务',
-          stylistName: '阿铭 匠师',
+          summary: '您已成功预约【简剪 · 007发艺】服务',
+          stylistName: '007',
           serviceName: '美式精修剪发 + 复古热敷刮面',
-          appointmentDateTime: `${tomorrowStr} 16:00`,
-          bookingCodeText: 'B8312',
-          customerName: '王先生',
-          customerPhone: '186****9910',
-          storeName: '简剪 · 匠心发艺 (三里屯店)',
+          appointmentDateTime: `${tomorrowStr} 15:00`,
+          bookingCodeText: 'B8009',
+          customerName: '林小姐',
+          customerPhone: '139****0079',
+          storeName: '简剪 · 007发艺工作室 (三里屯店)',
           storeAddress: '三里屯艺术街区A座102',
           warmPrompt: '请凭核销码准时到店，档期将为您保留15分钟。',
-          sentAt: '2026-10-22 18:30',
+          sentAt: `${todayStr} 10:15`,
           read: true,
         },
       ],

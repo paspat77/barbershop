@@ -68,39 +68,34 @@ export const StylistScheduleView: React.FC = () => {
           </button>
         </div>
 
-        {/* Stylist Selector */}
-        <div className="bg-stone-800/80 rounded-2xl p-2.5 border border-stone-700/60">
-          <div className="text-[10px] text-stone-400 mb-1.5 flex items-center justify-between">
-            <span>当前登录发型师身份（点击可切换）：</span>
-            <span className="text-amber-400 font-mono">ID: {currentStylist.id}</span>
+        {/* Stylist Identity */}
+        <div className="bg-stone-800/80 rounded-2xl p-3 border border-stone-700/60 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img
+              src={currentStylist.avatar}
+              alt={currentStylist.name}
+              referrerPolicy="no-referrer"
+              className="w-12 h-12 rounded-xl object-cover shrink-0 border border-amber-600/60"
+            />
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-white">{currentStylist.name}</span>
+                <span className="text-[10px] bg-amber-900/60 text-amber-300 px-1.5 py-0.5 rounded border border-amber-600/40">
+                  {currentStylist.title}
+                </span>
+              </div>
+              <div className="text-[11px] text-stone-300 mt-0.5 font-mono">
+                发龄 {currentStylist.experienceYears} 年 · {currentStylist.completedOrders}+ 服务
+              </div>
+              <div className="text-[10px] text-amber-300/90 italic mt-0.5">
+                “{currentStylist.bio}”
+              </div>
+            </div>
           </div>
-
-          <div className="grid grid-cols-3 gap-2">
-            {stylists.map((stylist) => {
-              const isCurrent = stylist.id === currentBarberId;
-              return (
-                <button
-                  key={stylist.id}
-                  onClick={() => setCurrentBarberId(stylist.id)}
-                  className={`flex items-center gap-2 p-1.5 rounded-xl border text-left transition-all ${
-                    isCurrent
-                      ? 'bg-amber-900/60 border-amber-500 text-white shadow-xs ring-1 ring-amber-500'
-                      : 'bg-stone-800/40 border-stone-700 text-stone-300 hover:bg-stone-700/60'
-                  }`}
-                >
-                  <img
-                    src={stylist.avatar}
-                    alt={stylist.name}
-                    referrerPolicy="no-referrer"
-                    className="w-8 h-8 rounded-full object-cover shrink-0 border border-stone-600"
-                  />
-                  <div className="min-w-0 flex-1">
-                    <div className="text-xs font-bold truncate">{stylist.name}</div>
-                    <div className="text-[9px] text-stone-400 truncate">{stylist.title.slice(0, 4)}</div>
-                  </div>
-                </button>
-              );
-            })}
+          <div className="text-right shrink-0">
+            <span className="text-[10px] text-emerald-400 bg-emerald-950/80 border border-emerald-700/50 px-2 py-1 rounded-full font-medium">
+              ● 工作台中
+            </span>
           </div>
         </div>
       </div>

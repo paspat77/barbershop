@@ -69,8 +69,8 @@ interface BarbershopContextType {
 
 const BarbershopContext = createContext<BarbershopContextType | undefined>(undefined);
 
-const STORAGE_KEY_SCHEDULES = 'barbershop_schedules_v2';
-const STORAGE_KEY_APPOINTMENTS = 'barbershop_appointments_v2';
+const STORAGE_KEY_SCHEDULES = 'barbershop_schedules_v3';
+const STORAGE_KEY_APPOINTMENTS = 'barbershop_appointments_v3';
 
 export const BarbershopProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [stylists] = useState<Stylist[]>(INITIAL_STYLISTS);

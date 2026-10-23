@@ -1,24 +1,25 @@
 <!--pages/schedule/schedule.wxml-->
 <view class="container">
-  <!-- 理发师身份切换 -->
+  <!-- 理发师身份卡片 -->
   <view class="card barber-header">
-    <view class="header-label">切换理发师身份：</view>
-    <view class="barber-tabs">
-      <view 
-        wx:for="{{stylists}}" 
-        wx:key="id" 
-        class="barber-tab {{currentBarberId === item.id ? 'active' : ''}}"
-        bindtap="switchBarber"
-        data-id="{{item.id}}"
-      >
-        {{item.name}}
+    <view class="barber-profile-row">
+      <view class="barber-avatar">007</view>
+      <view class="barber-details">
+        <view class="barber-name-row">
+          <text class="barber-name">007</text>
+          <text class="barber-role">特工发艺主理人</text>
+        </view>
+        <view class="barber-exp">发龄 20 年 · “never joke about my work, 007”</view>
       </view>
     </view>
   </view>
 
   <!-- 日期切换 -->
   <view class="card">
-    <view class="section-title">选择排班日期：{{selectedDate}}</view>
+    <view class="section-title-row">
+      <text class="section-title">选择排班日期</text>
+      <text class="date-selected-hint">已选: {{selectedDate}}</text>
+    </view>
     <scroll-view class="date-scroll" scroll-x enable-flex>
       <view 
         wx:for="{{upcomingDays}}" 
@@ -29,6 +30,7 @@
       >
         <view class="date-rel">{{item.relativeLabel}}</view>
         <view class="date-num">{{item.dayNumber}}</view>
+        <view class="date-week">{{item.dayOfWeek}}</view>
       </view>
     </scroll-view>
   </view>
