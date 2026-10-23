@@ -8,7 +8,7 @@ interface WeChatHeaderProps {
   onBack?: () => void;
 }
 
-export const WeChatHeader: React.FC<WeChatHeaderProps> = ({ title = '简剪 · 理发预约' }) => {
+export const WeChatHeader: React.FC<WeChatHeaderProps> = ({ title = 'BT100 · 理发预约' }) => {
   const { resetAllData, activeTab, setActiveTab } = useBarbershop();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -65,8 +65,8 @@ export const WeChatHeader: React.FC<WeChatHeaderProps> = ({ title = '简剪 · �
               <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
               <div className="absolute right-0 top-10 w-48 bg-stone-900 border border-stone-700 rounded-xl shadow-2xl py-1 z-50 text-xs animate-in fade-in zoom-in-95 duration-150">
                 <div className="px-3 py-2 border-b border-stone-800">
-                  <p className="font-medium text-stone-200">简剪理发预约</p>
-                  <p className="text-[11px] text-stone-400">微信小程序 v2.4</p>
+                  <p className="font-medium text-stone-200">BT100 理发预约</p>
+                  <p className="text-[11px] text-stone-400">深圳市宝安区壆岗大道围浅楼37号</p>
                 </div>
 
                 <button

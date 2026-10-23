@@ -1,8 +1,8 @@
 <!--pages/my/my.wxml-->
 <view class="container">
   <view class="card user-card">
-    <view class="user-name">预约中心与服务通知记录</view>
-    <view class="user-sub">可在此查看预约核销码，或取消预约释放时段</view>
+    <view class="user-name">BT100 预约中心与服务通知记录</view>
+    <view class="user-sub">深圳市宝安区壆岗大道围浅楼37号 · 到店出示核销码</view>
   </view>
 
   <view wx:if="{{appointments.length === 0}}" class="card empty-card">

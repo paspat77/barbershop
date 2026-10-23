@@ -1,6 +1,6 @@
 {
-  "name": "Barbershop WeChat Mini-Program",
-  "description": "理发店预约微信小程序：支持客户在线挑选发型师与时间段预约，理发师自主设置有空与没空时段及排班管理。",
+  "name": "BT100 理发预约小程序",
+  "description": "BT100 理发预约小程序 · 深圳市宝安区壆岗大道围浅楼37号 · 007主理人专属预约",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

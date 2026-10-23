@@ -54,7 +54,7 @@ export const SideBySideView: React.FC = () => {
           </div>
 
           <div className="relative flex-1 bg-stone-50 rounded-b-[26px] overflow-hidden flex flex-col">
-            <WeChatHeader title="简剪 · 顾客预约" />
+            <WeChatHeader title="BT100 · 顾客预约" />
             <div className="relative">
               <WeChatNotificationBanner />
             </div>
@@ -68,13 +68,13 @@ export const SideBySideView: React.FC = () => {
           <div className="bg-stone-800/90 text-stone-200 text-xs px-4 py-1.5 flex items-center justify-between border-b border-stone-700/60 rounded-t-[26px]">
             <span className="font-bold flex items-center gap-1.5 text-emerald-400">
               <CalendarClock className="w-3.5 h-3.5" />
-              2. 理发师档期设置工作台 (管理端)
+              2. 007 档期设置工作台 (管理端)
             </span>
             <span className="text-[10px] text-stone-400">发型师视角</span>
           </div>
 
           <div className="relative flex-1 bg-stone-50 rounded-b-[26px] overflow-hidden flex flex-col">
-            <WeChatHeader title="理发师 · 档期排班" />
+            <WeChatHeader title="007 · 档期排班" />
             <StylistScheduleView />
           </div>
         </div>

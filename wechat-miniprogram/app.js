@@ -60,8 +60,10 @@ App({
     }
   },
 
-  globalData: {
+    globalData: {
     userInfo: null,
+    shopName: 'BT100',
+    shopAddress: '深圳市宝安区壆岗大道围浅楼37号',
     // 按照需求：仅保留1位理发师，名称007，留言：never joke about my work, 007；发龄20年
     stylists: [
       {

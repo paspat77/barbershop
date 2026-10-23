@@ -120,14 +120,14 @@ export const CustomerBookingView: React.FC = () => {
               <span className="text-[10px] tracking-wider uppercase font-semibold text-amber-300">
                 Studio & Grooming
               </span>
-              <h1 className="text-xl font-bold tracking-tight text-white mt-0.5">简剪 · 匠心发艺</h1>
+              <h1 className="text-xl font-bold tracking-tight text-white mt-0.5">BT100 · 匠心发艺</h1>
               <p className="text-[11px] text-stone-300 flex items-center gap-1.5 mt-1">
                 <MapPin className="w-3 h-3 text-amber-400 shrink-0" />
-                <span>三里屯艺术街区A座102</span>
+                <span>深圳市宝安区壆岗大道围浅楼37号</span>
                 <span>·</span>
                 <span className="text-amber-300 flex items-center gap-0.5 font-medium">
                   <Star className="w-3 h-3 fill-amber-300 text-amber-300" />
-                  4.9分
+                  5.0分
                 </span>
               </p>
             </div>
@@ -135,7 +135,7 @@ export const CustomerBookingView: React.FC = () => {
               onClick={() => setActiveTab('stylist_schedule')}
               className="text-[11px] bg-white/10 hover:bg-white/20 text-stone-200 border border-white/20 rounded-full px-3 py-1 flex items-center gap-1 transition-colors"
             >
-              <span>理发师排班端</span>
+              <span>007 排班端</span>
               <ChevronRight className="w-3 h-3" />
             </button>
           </div>

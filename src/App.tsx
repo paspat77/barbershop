@@ -58,10 +58,10 @@ const MainAppContent: React.FC = () => {
             </div>
             <div>
               <span className="text-base font-bold tracking-tight text-stone-900 whitespace-nowrap block">
-                简剪 · 理发预约小程序
+                BT100 · 理发预约小程序
               </span>
               <span className="text-[10px] text-stone-500 hidden sm:block">
-                客户时段预约 & 理发师有空/没空自主设定
+                深圳市宝安区壆岗大道围浅楼37号 · 007主理
               </span>
             </div>
           </div>
@@ -192,7 +192,7 @@ const MainAppContent: React.FC = () => {
 
         {displayMode === 'fullscreen' && (
           <div className="w-full max-w-4xl bg-white rounded-3xl border border-stone-200 shadow-md overflow-hidden flex flex-col h-[820px] animate-in fade-in duration-200">
-            <WeChatHeader title="简剪理发预约" />
+            <WeChatHeader title="BT100 理发预约" />
             <div className="relative">
               <WeChatNotificationBanner />
             </div>

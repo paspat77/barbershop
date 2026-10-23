@@ -1,5 +1,5 @@
 {
-  "description": "简剪理发预约微信小程序",
+  "description": "BT100 理发预约微信小程序",
   "cloudfunctionRoot": "cloudfunctions/",
   "packOptions": {
     "ignore": []

@@ -103,7 +103,7 @@ export const BookingSuccessModal: React.FC<BookingSuccessModalProps> = ({
 
           <div className="bg-stone-50 rounded-xl p-2.5 flex items-start gap-2 text-stone-500 text-[11px]">
             <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
-            <span>三里屯北路88号艺术街区A座102 · 请提前5-10分钟到店</span>
+            <span>深圳市宝安区壆岗大道围浅楼37号 BT100 · 请提前5-10分钟到店</span>
           </div>
         </div>
 

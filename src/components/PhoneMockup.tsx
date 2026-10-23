@@ -13,13 +13,13 @@ export const PhoneMockup: React.FC = () => {
   const getTitle = () => {
     switch (activeTab) {
       case 'customer_booking':
-        return '简剪 · 预约发型';
+        return 'BT100 · 预约发型';
       case 'stylist_schedule':
-        return '理发师 · 档期设置';
+        return '007 · 档期设置';
       case 'my_bookings':
-        return '我的预约记录';
+        return 'BT100 · 预约记录';
       default:
-        return '简剪理发预约';
+        return 'BT100 理发预约';
     }
   };
 

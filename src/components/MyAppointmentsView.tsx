@@ -300,7 +300,7 @@ export const MyAppointmentsView: React.FC = () => {
                     {/* Store address hint */}
                     <div className="text-[10px] text-stone-400 flex items-center gap-1 pt-1">
                       <MapPin className="w-3 h-3 text-stone-400 shrink-0" />
-                      <span>三里屯艺术街区A座102 简剪沙龙</span>
+                      <span>深圳市宝安区壆岗大道围浅楼37号 BT100</span>
                     </div>
 
                     {/* Cancel Action */}
